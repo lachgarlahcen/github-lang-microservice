@@ -1,12 +1,20 @@
 const axios = require('axios');
 const lang = [];
-var lang_data = [];
+const lang_data = [];
 const result = {
     status: null,
     data: null
 };
+// TO SORT THE LIST OF LANGS BY REPO COUNT
+function compare(a, b) {
+    return b.number_of_repos - a.number_of_repos;
+}
+// GET TO TRENDING REPOS FROM GITHUB API
 const getMostTrendingRepos = async () => {
-    await axios.get('https://api.github.com/search/repositories?page=1&per_page=100&q=is:public&sort=stars&order=desc')
+    // CLEAR ARRAYS 
+    lang_data.length = 0;
+    lang.length = 0;
+    await axios.get('https://api.github.com/search/repositories?page=1&per_page=100&q=stars:>=10000+is:public&sort=stars&order=desc')
         .then(response => {
             result.status = response.status;
             result.data = response.data;
@@ -15,12 +23,14 @@ const getMostTrendingRepos = async () => {
             result.status = error.status;
         });
     if (result.status == 200) {
+        // LOOP THEOUGHT REPOS AND ADD LANGUAGE TO AN ARRAY WITHOUT DOUBLICATIONG
         result.data.items.forEach(item => {
+            // SOMTHIMES THE VALUE OF LANG IS NULL
             if (item.language != null && lang.indexOf(item.language) === -1) {
                 lang.push(item.language);
                 lang_data.push(
                     {
-                        language: item.language,
+                        name: item.language,
                         number_of_repos: 1,
                         repos_list: [item.full_name]
                     }
@@ -33,6 +43,8 @@ const getMostTrendingRepos = async () => {
             }
 
         });
+        // SORT LANGUAGES BY REPO COUNT
+        lang_data.sort(compare);
     }
 };
 
