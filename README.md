@@ -6,7 +6,7 @@
     npm start
 
 ## operations
-- list of languages used by the 100 trending public repos on GitHub(most stared of all time) ✅
+- list of languages used by the 100 trending public repos on GitHub(most starred of all time) ✅
 - For every language :
     - Number of repos using this language ✅
     - The list of repos using the language ✅
