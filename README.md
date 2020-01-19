@@ -10,7 +10,7 @@
 - For every language :
     - Number of repos using this language ✅
     - The list of repos using the language ✅
-    - Framework popularity over the 100 repos (I didn't figure out how can i get Framework popularity from github)
+    - Framework popularity over the 100 repos (I didn't figure out how can i get Framework popularity from github api)
 ## Simple Authentication
 
 ### Request
